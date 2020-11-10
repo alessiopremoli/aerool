@@ -1,3 +1,4 @@
 *.mp4
 ffmpeg.txt
 data
+.DS_Store
