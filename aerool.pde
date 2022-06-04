@@ -9,20 +9,20 @@ float x = 0;
 float y = 0;
 float Cx = 0;
 float Cy = 0;
-String FILE_NAME = "Chelidon Frame - Mist of Numbers, Fog of Worlds.mp3";
+String FILE_NAME = "Chelidon Frame - Glorified Busy.wav";
 
 void setup() {
   
   size(1000,1000);
   
-  Cx= 500;
-  Cy= 500;
+  Cx= width / 2;
+  Cy= height / 2;
   
   minim = new Minim(this);
   player = minim.loadFile(FILE_NAME);
   player.play();
   
-  videoExport = new VideoExport(this, "output.mp4");
+  videoExport = new VideoExport(this, FILE_NAME.replace("wav", "mp4"));
   videoExport.setFrameRate(30);
   videoExport.startMovie();
   
@@ -44,12 +44,9 @@ void draw() {
    {
      
      x = sin(player.right.get(i));
-     //x=player.left.get(i);
      y = sin(player.left.get(i));
-     //x = player.right.get(i);
      
     curveVertex(round(Cx+mapToSize(x)), round(Cy+mapToSize(y)));
-    //vertex(Cx+player.right.get(i+1)*500, Cy-player.left.get(i+1)*500);
      
    }
    endShape();
