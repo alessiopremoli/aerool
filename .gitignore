@@ -3,3 +3,4 @@ ffmpeg.txt
 data
 .DS_Store
 out
+*.autosave
