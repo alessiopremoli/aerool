@@ -9,13 +9,21 @@ float x = 0;
 float y = 0;
 float Cx = 0;
 float Cy = 0;
+boolean rotate = false;
 int lenght = 0;
-String FILE_NAME = "Chelidon Frame - Glorified Busy.mp3";
+String FILE_NAME = "Chelidon Frame - A Circle Has No End.mp3";
 // String FILE_NAME = "Chelidon Frame - Like Waves on A Pensive Evening.mp3";
 
+float angle; 
+
+public void settings() {
+  size(960, 1080);
+}
+
+
 void setup() {
-    
-    size(1000,1000);
+  
+    frameRate(30);
     
     Cx = width / 2;
     Cy = height / 2;
@@ -34,7 +42,14 @@ void setup() {
 }
 
 void draw() {
+    if(rotate) {
+      translate(width / 2, height / 2);
+      angle = angle + PI/100;      
+      rotate(angle);
+    }
     videoExport.saveFrame();
+    
+    // background(0);
     
     stroke(map(millis(), 0, lenght, 255, 0));
     strokeWeight(1);
@@ -44,6 +59,7 @@ void draw() {
     
     x = 0;
     y = 0;
+   
 }
 
 float mapToSize(float value) {
@@ -51,7 +67,7 @@ float mapToSize(float value) {
 }
 
 float mapToDynamicSize(float value) {
-    println(map(player.position(), 0, lenght, 0.1, 1));
+    // println(map(player.position(), 0, lenght, 0.1, 1));
     return map(value, -1, 1, -height, height) * map(player.position(), 0, lenght, 0.1, 1);
 }
 
@@ -96,6 +112,22 @@ void drawCircles(AudioPlayer player) {
         
     }
     endShape();
+    
+}
+
+void drawSquare(AudioPlayer player) {
+  rectMode(CENTER);
+  
+  // noFill();
+    for (int i = 0; i < player.bufferSize() - 1; i++) {
+        
+        x = player.right.get(i);
+        y = player.left.get(i);
+        
+        // curveVertex(round(Cx + mapToSize(x)), round(Cy + mapToSize(y)));
+        
+        rect(0, 0, mapToSize(x + y), mapToSize(x + y));
+    }
     
 }
 
